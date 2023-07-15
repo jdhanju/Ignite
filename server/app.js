@@ -20,7 +20,7 @@ const pool = new pg.Pool({
 })
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:80",
   credentials: true
 }));
 app.use(express.urlencoded({extended: false}));
