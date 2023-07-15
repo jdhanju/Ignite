@@ -18,17 +18,19 @@ export default function PublicDates() {
         setTabValue(newValue);
     };
 
-    const retrieveEvents = () => {
-        let url = `http://localhost:8000/ticketmaster`
+    const retrieveEvents = async () => {
+        let url = `http://localhost:8000/ticketmaster`;
+     
         fetch(url)
         .then((response) => {
             return response.json()
           }) 
           .then((data) => {
+            console.log(data)
             setEvents(data)
           })
         .catch (error => {
-            console.log(error)
+            console.log(error, "ERROR")
         })
     }
 
@@ -52,6 +54,7 @@ export default function PublicDates() {
         var category = date.classifications[0].genre.name
         var location = date._embedded.venues[0].name
         var id = date.id
+        console.log(description)
 
         if (date.images[1]) {
             var image = date.images[1].url
@@ -61,10 +64,8 @@ export default function PublicDates() {
 
         return (
             <DateCard key={id} name={name} category={category} location={location} image={image}></DateCard>
-        )
-        
+        )    
     })
-    
 
     var datesList = dates.map(function(date) {
         let name = date.name

@@ -84,7 +84,9 @@ async function logoutUser() {
 }
 
 async function loginWithGoogle(token) {
-  await fetch("http://localhost:8000/users/login/google", fetchOptions.BEARER_TOKEN(token));
+  const res = await fetch("http://localhost:8000/users/login/google", fetchOptions.BEARER_TOKEN(token));
+  const data = res.json();
+  return data;
 }
 
 export {

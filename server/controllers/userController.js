@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import verifyToken from '../helpers/verifyGoogleToken.js';
 import pool from '../postgres.js'
+import verifyToken from '../helpers/verifyGoogleToken.js';
 
 const SALT_ROUNDS = 10;
 
@@ -119,11 +119,14 @@ userController.loginWithGoogle = async (req, res, next) => {
   // Extracting Bearer Token from headers
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
-  const email = await verifyToken(token).catch(console.log);
+
+  // Get email from decoded token
+  const email = await verifyToken(token);
   const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
   const {username, avatar_url} = result.rows[0];
-  req.session.user = {username, email, avatar_url};
-  res.status(200).end()
+  const userData = {username, email, avatar_url};
+  req.session.user = {...userData};
+  res.status(200).json(userData)
 }
 
 export default userController;

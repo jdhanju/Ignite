@@ -2,11 +2,15 @@ import { Switch } from "@mui/material";
 import Input from "../components/Input";
 import useForm from "../hooks/useForm";
 import Hero from "../assets/Hero.jpg"
-import { useLoaderData, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { renderGoogleBtn } from "../GoogleIdentity";
+import GoogleLogo from "../assets/google.png"
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { auth as firebaseAuth, provider as googleProvider } from "../Firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { validateLoginForm } from "../helpers/formValidator";
 import useLogin from "../hooks/useLogin";
+import { loginWithGoogle } from "../api/internal/postgres";
 
 export default function Login() {
   const [isValid, setIsValid] = useState(true);
@@ -16,6 +20,8 @@ export default function Login() {
   const [errorMessagesEnabled, setErrorMessagesEnabled] = useState(false);
   const [rememberMeChecked, setRememberMeChecked] = useState(false);
   const login = useLogin();
+  const navigate = useNavigate();
+  const { dispatch } = useAuthContext();
 
   const [formState, handleInputChange] = useForm({
     "username": "",
@@ -24,9 +30,20 @@ export default function Login() {
 
   const heroImg = useLoaderData();
 
-  useEffect(() => {
-    renderGoogleBtn("googleSignInBtn", "login")
-  }, [])
+  const handleClickGoogleBtn = async () => {
+    const result = await signInWithPopup(firebaseAuth, googleProvider);
+    // JWT from Google
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.idToken;
+
+    try {
+      const userData = await loginWithGoogle(token);
+      dispatch({type: "LOGIN", payload: userData});
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,11 +116,17 @@ export default function Login() {
 
           {/* Alternate Login Section */}
           <section className="mt-8">
-            {/* Root element for google button */}
-            <div className="h-[40px] relative">
-              <div className="absolute w-full" id="googleSignInBtn" />
-            </div>
+            {/* Google sign-in button */}
+            <button
+              type="button"
+              onClick={handleClickGoogleBtn}
+              className="w-full bg-gray-800 text-white h-10 rounded-md text-sm font-semibold 
+              flex items-center justify-center"
+            >
+              <img src={GoogleLogo} className="h-5 w-5 inline-block mr-2"></img>Or sign in with Google
+            </button>
 
+            {/* Links */}
             <div className="text-sm mt-8 flex justify-center">
               Don't have an account?
               <Link to="/signup" className="ml-3">Sign up now</Link>

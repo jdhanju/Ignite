@@ -13,7 +13,6 @@ import MyDates from "./pages/MyDates";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useEffect, useState } from "react";
 import { getSession } from "./api/internal/postgres";
-import { initGoogleIdentity, handleCallbackResponse } from "./GoogleIdentity";
 
 export default function App() {
   const { user, dispatch } = useAuthContext();
@@ -24,8 +23,8 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      // element: user ? <Home /> : <Login />,
-      element: <Home />,
+      element: user ? <Home /> : <Login />,
+      // element: <Home />,
       loader: loginLoader,
       errorElement: <ErrorPage />,
     },
@@ -66,13 +65,6 @@ export default function App() {
     }
 
     getSessionDetails();
-  }, []);
-
-  // Google Identity init
-  useEffect(() => {
-    const callbackWrapper = (response) =>
-      handleCallbackResponse(response, dispatch);
-    initGoogleIdentity(callbackWrapper);
   }, []);
 
   return (

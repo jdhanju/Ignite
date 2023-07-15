@@ -2,7 +2,6 @@ import Input from "../components/Input";
 import useForm from "../hooks/useForm";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { renderGoogleBtn } from "../GoogleIdentity";
 import { validateSignupForm } from "../helpers/formValidator";
 import { signupUser, getUserByEmail, getUserByUsername } from "../api/internal/postgres";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -27,11 +26,6 @@ export default function Signup() {
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
   const heroImg = useLoaderData();
-
-  // Render the Google sign in button
-  useEffect(() => {
-    renderGoogleBtn("googleSignInBtn", "signup");
-  }, [])
 
   // Update error messages on input change if user has already attempted to submit form
   useEffect(() => {
@@ -135,13 +129,8 @@ export default function Signup() {
             </button>
           </section>
 
-          {/* Alternate Login Section */}
+          {/* Links */}
           <section className="mt-6">
-            {/* Root element for google button */}
-            <div className="h-[40px] relative">
-              <div className="absolute w-full" id="googleSignInBtn" />
-            </div>
-
             <div className="text-sm mt-8 flex justify-center">
               Already have an account?
               <Link to="/login" className="ml-3">Log in</Link>

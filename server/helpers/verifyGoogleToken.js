@@ -1,15 +1,13 @@
-import dotenv from 'dotenv'
-import { OAuth2Client } from 'google-auth-library';
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
+import jwt from "jsonwebtoken"
 
-// Verify tokens on server-end
-const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
-
-export default async function verifyToken(token) {
-  const ticket = await client.verifyIdToken({
-    idToken: String(token),
-    audience: process.env.VITE_GOOGLE_CLIENT_ID,
-  });
-  const payload = ticket.getPayload();
-  return payload.email
+// Verify tokens from Firebase Auth on server-end to confirm user
+export default function verifyToken(token) {
+  const decoded = jwt.decode(token)
+  
+  if (decoded.email_verified)
+    return decoded.email;
+  else
+    return {error: "Email has not been verified"};
 }
