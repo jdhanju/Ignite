@@ -4,7 +4,7 @@ dotenv.config();
 
 const client = new pg.Client({
   user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD
+  password: process.env.PG_PASSWORD,
 })
 
 // Create DB

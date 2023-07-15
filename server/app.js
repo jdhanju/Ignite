@@ -4,6 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import userRouter from './routes/users.js'
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 dotenv.config();
 
 const app = express();
@@ -47,7 +48,7 @@ app.get('/mydates', (req, res) => {
 
 app.get('/eventbrite', (req,res) => {
   let url = `https://www.eventbriteapi.com/v3/venues/1234/?token=${eventbrite_api}`
-  fetch(url)
+  fetch(url, {credentials: "include"})
     .then((response) => {
       return response.json()
     }) 
@@ -63,7 +64,7 @@ app.get('/ticketmaster', (req,res) => {
   let startTime = "2023-07-09T01:00:00Z"
   let endTime = "2023-07-14T23:59:00Z"
   let url = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=CA&city=Vancouver&startDateTime=${startTime}&endDateTime=${endTime}&apikey=${ticketmaster_api}`
-  fetch(url)
+  fetch(url, {credentials: "include"})
     .then((response) => {
       return response.json()
     }) 

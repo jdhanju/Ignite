@@ -105,7 +105,6 @@ userController.getSession = (req, res, next) => {
     console.log("Session exists:", req.session.user);
     res.json(req.session.user);
   } else {
-    console.log("Session does not exist", req.session);
     res.json({error: "No session available"});
   }
 }

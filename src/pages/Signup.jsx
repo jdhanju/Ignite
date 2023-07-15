@@ -1,6 +1,5 @@
 import Input from "../components/Input";
 import useForm from "../hooks/useForm";
-import Hero from "../assets/Hero.jpg"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { renderGoogleBtn } from "../GoogleIdentity";
@@ -152,9 +151,4 @@ export default function Signup() {
       </main>
     </div>
   )
-}
-
-// Preload large hero image
-export function loader() {
-  return (<img src={Hero} className="object-cover w-full h-full" alt="Concert Lights" />);
 }
