@@ -62,7 +62,7 @@ export default function DateCard({ id, name, description, category, location,
 
     const handleFavoriteClick = async () => {
       if (isFav == false) {
-        let url = `http://localhost:8000/favorites?user=${user.id}&event=${eventid}`
+        let url = `${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}&event=${eventid}`
         fetch(url, {
           method: "POST"
         })
@@ -78,7 +78,7 @@ export default function DateCard({ id, name, description, category, location,
 
     const handleUnfavoriteClick = () => {
       if (isFav == true) {
-        let url = `http://localhost:8000/favorites?user=${user.id}&event=${eventid}`
+        let url = `${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}&event=${eventid}`
         fetch(url, {
           method: "DELETE"
         })

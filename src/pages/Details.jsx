@@ -36,7 +36,7 @@ export default function Details() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const postData = async (body) => {
-    await fetch("http://localhost:8000/mydates", {
+    await fetch(`${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

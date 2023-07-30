@@ -40,7 +40,7 @@ export default function MyDates({ entryTab }) {
   };
 
   const retrieveDates = () => {
-    let url = `http://localhost:8000/mydates?user=${user.id}`;
+    let url = `${import.meta.env.VITE_EXTERNAL_IP}/mydates?user=${user.id}`;
     fetch(url)
       .then((response) => {
         return response.json();
@@ -55,7 +55,7 @@ export default function MyDates({ entryTab }) {
   };
 
   const retrieveFavorites = () => {
-    let url = `http://localhost:8000/favorites?user=${user.id}`;
+    let url = `${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}`;
     fetch(url)
       .then((response) => {
         return response.json();

@@ -347,7 +347,7 @@ const insertMockData = async () => {
 
 const createSchema = async () => {
   try {
-    await createDatabase();
+    // await createDatabase();
     await createTables();
     console.log("Schema creation successful!");
     await insertMockData();
