@@ -112,6 +112,7 @@ const createTables = async () => {
 
 const insertMockData = async () => {
   const pool = new pg.Pool({
+    ...clientOpts,
     user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: "dateplanner",
