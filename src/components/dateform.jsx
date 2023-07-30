@@ -186,9 +186,11 @@ function DateForm(props) {
                   onChange={handleFormChange}
                 >
                   <option value="">Select Price</option>
+                  <option value="Free">Free</option>
                   <option value="$">$</option>
                   <option value="$$">$$</option>
                   <option value="$$$">$$$</option>
+                  <option value="$$$$">$$$$</option>
                 </select>
               </div>
             </div>
