@@ -1,5 +1,5 @@
 import express from "express";
-import pg from "pg";
+import pool from "./postgres.js";
 import cors from "cors";
 import session from "express-session";
 import userRouter from "./routes/users.js";
@@ -14,15 +14,9 @@ const app = express();
 const PORT = 8000;
 const ticketmaster_api = process.env.TICKETMASTER_API_KEY;
 
-const pool = new pg.Pool({
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: "dateplanner",
-});
-
 app.use(
   cors({
-    origin: `http://localhost:3000`,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -491,7 +485,10 @@ app.get("/pendingUserInvites", async (req, res) =>{
 
   try {
     const result = await pool.query(selectQuery, values);
-    res.json(result.rows);
+    if (result.rows.length > 0)
+      res.json(result.rows);
+    else
+      res.json([]);
   } catch (error) {
     res.status(500).json({ error: "Cannot select users pending invitations" });
   }

@@ -13,7 +13,7 @@ async function getUpcomingDates(){
     let results = [];
 
     try{
-        results = await fetch(`${process.env.VITE_EXTERNAL_IP}/allUpcomingEvents`);
+        results = await fetch(`http://${process.env.VITE_EXTERNAL_IP}/allUpcomingEvents`);
 
     } catch(error){
         console.log(error + ": Problem fetching all upcoming dates");

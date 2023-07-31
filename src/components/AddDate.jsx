@@ -9,7 +9,7 @@ export default function AddDate() {
   const [modalShow, setModalShow] = useState(false);
 
   const postData = async (body) => {
-    const response = await fetch(`${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
+    const response = await fetch(`http://${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

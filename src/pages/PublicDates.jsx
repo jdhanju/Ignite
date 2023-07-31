@@ -80,7 +80,7 @@ export default function PublicDates({ entryTab }) {
     };
 
     const retrieveEvents = () => {
-        let url = `${import.meta.env.VITE_EXTERNAL_IP}/ticketmaster?start=${eventStart}&end=${eventEnd}&country=${countryCode}&city=${citySearch}`
+        let url = `http://${import.meta.env.VITE_EXTERNAL_IP}/ticketmaster?start=${eventStart}&end=${eventEnd}&country=${countryCode}&city=${citySearch}`
         fetch(url)
         .then((response) => {
             return response.json()
@@ -95,7 +95,7 @@ export default function PublicDates({ entryTab }) {
 
     const retrieveDates = () => {
 
-        var url = `${import.meta.env.VITE_EXTERNAL_IP}/publicdates?category=${categorySelect}&price=${priceSelect}&location=${locationSelect}&preferredTime=${preferredTimeSelect}`
+        var url = `http://${import.meta.env.VITE_EXTERNAL_IP}/publicdates?category=${categorySelect}&price=${priceSelect}&location=${locationSelect}&preferredTime=${preferredTimeSelect}`
 
         fetch(url)
         .then((response) => {
@@ -112,7 +112,7 @@ export default function PublicDates({ entryTab }) {
 
     const retrieveFavorites = () => {
         if (user) {
-            let url = `${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}`;
+            let url = `http://${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}`;
             fetch(url)
             .then((response) => {
                 return response.json()

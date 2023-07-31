@@ -20,6 +20,8 @@ import date5 from "../assets/homepage/date5.jpg"
 import date6 from "../assets/homepage/date6.jpg"
 import date7 from "../assets/homepage/date7.jpg"
 import date8 from "../assets/homepage/date8.jpg"
+import defaultCoverPhoto from "/src/assets/homepage/background6.jpg";
+import defaultAvatar from "/src/assets/avatar.png";
  
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -47,8 +49,8 @@ export default function Home() {
   const navigate = useNavigate();
   const logout = useLogout();
 
-  const backgroundImage = user.cover_photo || "src/assets/homepage/background6.jpg";
-  const avatarImage = user.avatar || "src/assets/avatar.png";
+  const backgroundImage = user.cover_photo || defaultCoverPhoto;
+  const avatarImage = user.avatar || defaultAvatar;
 
   const settings = {
     dots: false,
@@ -67,7 +69,7 @@ export default function Home() {
   const fetchInvitations = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_EXTERNAL_IP}/pendingUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/pendingUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       setInvitations(data);
@@ -79,7 +81,7 @@ export default function Home() {
   const fetchUpcomingInvitations = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_EXTERNAL_IP}/upcomingUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/upcomingUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       console.log("Fetched upcoming invitations:", data);
@@ -97,7 +99,7 @@ export default function Home() {
   }, [user]);
 
   const updateInviteStatus = async (inviteId, newStatus) => {
-    const url = `${import.meta.env.VITE_EXTERNAL_IP}/updateInviteStatus?invite_id=${inviteId}&status=${newStatus}`;
+    const url = `http://${import.meta.env.VITE_EXTERNAL_IP}/updateInviteStatus?invite_id=${inviteId}&status=${newStatus}`;
 
     try {
       const response = await fetch(url, {
