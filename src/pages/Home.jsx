@@ -18,6 +18,8 @@ import date5 from "../assets/homepage/date5.jpg"
 import date6 from "../assets/homepage/date6.jpg"
 import date7 from "../assets/homepage/date7.jpg"
 import date8 from "../assets/homepage/date8.jpg"
+import date9 from "../assets/homepage/date8.jpg"
+import background5 from "../assets/homepage/background5.jpg"
 import defaultCoverPhoto from "/src/assets/homepage/background2.jpg";
 import defaultAvatar from "/src/assets/avatar.png";
  
@@ -234,10 +236,10 @@ export default function Home() {
           </div>
 
           {/* Navigation Links Table */}
-          <div className="grid container gap-2  mx-auto my-5">
+          <div className="grid container gap-2 mx-auto my-5">
 
              {/* Top banner card to Explore Dates */}
-             <Card className="grid grid-cols-1 gap-3 mx-auto relative rounded-lg bg-[url('src/assets/homepage/background5.jpg')] object-cover h-96 w-full bg-cover bg-right">
+             <Card className={`grid grid-cols-1 gap-3 mx-auto relative rounded-lg bg-[url(${background5})] object-cover h-96 w-full bg-cover bg-right`}>
               
               <CardActionArea onClick={(e) => handleNavCardClick(e, "public")}>
                 <Typography gutterBottom variant="h2" component="div" className="text-white my-0 mx-5" style={{fontWeight: "500"}} >
@@ -275,10 +277,6 @@ export default function Home() {
                 "Events & Concerts",
                 "FIND LOCAL EVENTS AND CONCERTS HAPPENING IN YOUR AREA"
               )}
-
-              
-
-              
             </div>
 
             {/* Bottom row of Navigation Links table*/}
