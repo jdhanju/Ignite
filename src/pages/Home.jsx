@@ -10,21 +10,22 @@ import { AddAPhoto } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import AvatarUploadModal from "../components/AvatarUploadModal";
 import { useNavigate } from "react-router-dom";
-import date3 from "../assets/homepage/date3.jpg";
-import date1 from "../assets/homepage/date1.jpg";
-import date2 from "../assets/homepage/date2.jpg";
-import date4 from "../assets/homepage/date4.jpg";
-import date5 from "../assets/homepage/date5.jpg";
-import date6 from "../assets/homepage/date6.jpg";
-import date7 from "../assets/homepage/date7.jpg";
-import date8 from "../assets/homepage/date8.jpg";
-import date9 from "../assets/homepage/date9.jpg";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import date3  from "../assets/homepage/date3.jpg"
+import date1 from "../assets/homepage/date1.jpg"
+import date2 from "../assets/homepage/date2.jpg"
+import date4 from "../assets/homepage/date4.jpg"
+import date5 from "../assets/homepage/date5.jpg"
+import date6 from "../assets/homepage/date6.jpg"
+import date7 from "../assets/homepage/date7.jpg"
+import date8 from "../assets/homepage/date8.jpg"
+import defaultCoverPhoto from "/src/assets/homepage/background2.jpg";
+import defaultAvatar from "/src/assets/avatar.png";
+ 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
 const polaroids = [
   {
@@ -46,9 +47,8 @@ export default function Home() {
   const navigate = useNavigate();
   const logout = useLogout();
 
-  const backgroundImage =
-    user.cover_photo || "src/assets/homepage/background2.jpg";
-  const avatarImage = user.avatar || "src/assets/avatar.png";
+  const backgroundImage = user.cover_photo || defaultCoverPhoto;
+  const avatarImage = user.avatar || defaultAvatar;
 
   const settings = {
     dots: false,
@@ -67,7 +67,7 @@ export default function Home() {
   const fetchInvitations = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/pendingUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/pendingUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       setInvitations(data);
@@ -79,7 +79,7 @@ export default function Home() {
   const fetchUpcomingInvitations = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/upcomingUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/upcomingUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       setUpcomingInvitations(data);
@@ -96,7 +96,7 @@ export default function Home() {
   }, [user]);
 
   const updateInviteStatus = async (inviteId, newStatus) => {
-    const url = `http://localhost:8000/updateInviteStatus?invite_id=${inviteId}&status=${newStatus}`;
+    const url = `http://${import.meta.env.VITE_EXTERNAL_IP}/updateInviteStatus?invite_id=${inviteId}&status=${newStatus}`;
 
     try {
       const response = await fetch(url, {

@@ -14,7 +14,7 @@ function Memories() {
   const fetchImages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/memories/images?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/memories/images?user_id=${user.id}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch images.");

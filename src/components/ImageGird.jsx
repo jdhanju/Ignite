@@ -29,7 +29,7 @@ function ImageGrid({ images, onDeleteImage }) {
       };
 
       const response = await fetch(
-        `http://localhost:8000/memories/images/${imageID}`,
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/memories/images/${imageID}`,
         requestOptions
       );
 

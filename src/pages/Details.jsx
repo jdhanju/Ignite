@@ -43,11 +43,11 @@ export default function Details() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const postData = async (body) => {
-    const response = await fetch("http://localhost:8000/mydates", {
-      method: "PATCH",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+    await fetch(`http://${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
     });
 
     if (response.ok) {
@@ -291,14 +291,13 @@ export default function Details() {
               </div>
             )}
 
-            {reviews.length > 0 &&
-              reviews.map((review) => (
-                <Review
-                  key={review.id}
-                  review={review}
-                  triggerRerender={triggerRerender}
-                />
-              ))}
+            {reviews.length > 0 && reviews.map((review) => (
+              <Review 
+                key={review.id}
+                review={review}
+                triggerRerender={triggerRerender}
+              />
+            ))}
           </div>
         </section>
       )}

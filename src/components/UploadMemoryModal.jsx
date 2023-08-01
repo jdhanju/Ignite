@@ -42,7 +42,7 @@ function UploadMemory(props) {
   const fetchAcceptedInvitations = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/acceptedUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/acceptedUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       const mappedInvitations = data.map((invitation) => {
@@ -121,7 +121,7 @@ function UploadMemory(props) {
       };
 
       const response = await fetch(
-        "http://localhost:8000/memories/images",
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/memories/images`,
         requestOptions
       );
 

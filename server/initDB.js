@@ -1,8 +1,19 @@
 import pg from "pg";
 import dotenv from "dotenv";
+import { Connector } from "@google-cloud/cloud-sql-connector"
 dotenv.config();
 
+// Google Cloud SQL connector
+const connector = new Connector();
+
+const clientOpts = await connector.getOptions({
+  instanceConnectionName: process.env.GCP_CLOUD_SQL_INSTANCE_CONNECTION_NAME,
+  ipType: 'PUBLIC', 
+});
+
+
 const client = new pg.Client({
+  ...clientOpts,
   user: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
 });
@@ -15,6 +26,7 @@ const createDatabase = async () => {
 
 const createTables = async () => {
   const pool = new pg.Pool({
+    ...clientOpts,
     user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: "dateplanner",
@@ -114,6 +126,7 @@ const createTables = async () => {
 
 const insertMockData = async () => {
   const pool = new pg.Pool({
+    ...clientOpts,
     user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: "dateplanner",
@@ -349,7 +362,7 @@ const insertMockData = async () => {
 
 const createSchema = async () => {
   try {
-    await createDatabase();
+    // await createDatabase();
     await createTables();
     console.log("Schema creation successful!");
     await insertMockData();

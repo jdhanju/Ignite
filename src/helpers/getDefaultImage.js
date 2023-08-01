@@ -1,16 +1,22 @@
+import adventurous from "/src/assets/default_images/adventurous.jpg"
+import indoor from "/src/assets/default_images/indoor.jpg"
+import relaxing from "/src/assets/default_images/relaxing.jpg"
+import romantic from "/src/assets/default_images/romantic.jpg"
+import stayAtHome from "/src/assets/default_images/stayAtHome.jpg"
+
 export function getDefaultImage(category) {
   switch (category) {
     case "adventurous":
-      return "/src/assets/default_images/adventurous.jpg";
+      return adventurous;
     case "indoor":
-      return "/src/assets/default_images/indoor.jpg";
+      return indoor;
     case "relaxing":
-      return "/src/assets/default_images/relaxing.jpg";
+      return relaxing;
     case "romantic":
-      return "/src/assets/default_images/romantic.jpg";
+      return romantic;
     case "stayathome":
-      return "/src/assets/default_images/stayAtHome.jpg";
+      return stayAtHome;
     default:
-      return "/src/assets/default_images/indoor.jpg";
+      return indoor;
   }
 }

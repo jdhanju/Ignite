@@ -80,7 +80,7 @@ export default function PublicDates({ entryTab }) {
     };
 
     const retrieveEvents = () => {
-        let url = `http://localhost:8000/ticketmaster?start=${eventStart}&end=${eventEnd}&country=${countryCode}&city=${citySearch}`
+        let url = `http://${import.meta.env.VITE_EXTERNAL_IP}/ticketmaster?start=${eventStart}&end=${eventEnd}&country=${countryCode}&city=${citySearch}`
         fetch(url)
         .then((response) => {
             return response.json()
@@ -95,7 +95,7 @@ export default function PublicDates({ entryTab }) {
 
     const retrieveDates = () => {
 
-        var url = `http://localhost:8000/publicdates?category=${categorySelect}&price=${priceSelect}&location=${locationSelect}&preferredTime=${preferredTimeSelect}`
+        var url = `http://${import.meta.env.VITE_EXTERNAL_IP}/publicdates?category=${categorySelect}&price=${priceSelect}&location=${locationSelect}&preferredTime=${preferredTimeSelect}`
 
         fetch(url)
         .then((response) => {
@@ -112,7 +112,7 @@ export default function PublicDates({ entryTab }) {
 
     const retrieveFavorites = () => {
         if (user) {
-            let url = `http://localhost:8000/favorites?user=${user.id}`;
+            let url = `http://${import.meta.env.VITE_EXTERNAL_IP}/favorites?user=${user.id}`;
             fetch(url)
             .then((response) => {
                 return response.json()
@@ -402,7 +402,7 @@ export default function PublicDates({ entryTab }) {
           <Outlet />
           <div className={`${outlet ? "hidden" : ""}`}>
             <div className="md:container mx-auto">
-            <h1 className="text-center mt-12 mb-4 tracking-wider text-center font-light tracking-wider border-b"  
+            <h1 className="text-center mt-12 mb-4 tracking-wider font-light border-b"  
                 style= {{color: "#39798f"}}>
                     FIND DATE IDEAS
             </h1>
