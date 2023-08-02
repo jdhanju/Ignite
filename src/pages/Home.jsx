@@ -206,7 +206,7 @@ export default function Home() {
         <div className="flex bgColor">
           <div className="floating-card-invitations my-5 overflow-y-auto !space-y-4">
             <h2
-              className="text-center font-light tracking-wider pb-2 border-b my-4"
+              className="text-center font-light tracking-wider pb-2 border-b my-3"
               style={{ color: "#39798f" }}
             >
               INVITATIONS
@@ -239,11 +239,10 @@ export default function Home() {
           <div className="grid container gap-2 mx-auto my-5">
 
              {/* Top banner card to Explore Dates */}
-             <Card
-              className={`grid grid-cols-1 gap-3 mx-auto relative rounded-lg object-cover h-96 w-full bg-cover bg-right`}
+             <Card 
+              className="grid grid-cols-1 gap-3 mx-auto relative rounded-lg object-cover h-96 w-full bg-cover bg-right"
               style={{ backgroundImage: `url(${background5})`}}
-             >
-              
+            >
               <CardActionArea onClick={(e) => handleNavCardClick(e, "public")}>
                 <Typography gutterBottom variant="h2" component="div" className="text-white my-0 mx-5" style={{fontWeight: "500"}} >
                     Find Inspiration
@@ -252,7 +251,6 @@ export default function Home() {
                     Explore other date ideas and find inspiration for your next hang out
                   </Typography>
               </CardActionArea>
-              
             </Card>
 
             {/* Top row of Navigation Links table*/}
@@ -305,7 +303,7 @@ export default function Home() {
           {/* Upcoming Dates Table */}
           <div className="floating-card-upcoming my-5 overflow-y-auto !space-y-4">
             <h2
-              className="text-center font-light tracking-wider pb-2 border-b my-4"
+              className="text-center font-light tracking-wider pb-2 border-b my-3"
               style={{ color: "#39798f" }}
             >
               UPCOMING
