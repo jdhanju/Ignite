@@ -31,7 +31,7 @@ function Memories() {
   const fetchAcceptedInvitations = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/acceptedUserInvites?user_id=${user.id}`
+        `http://${import.meta.env.VITE_EXTERNAL_IP}/acceptedUserInvites?user_id=${user.id}`
       );
       const data = await response.json();
       setAcceptedInvitationsLength(data.length);
@@ -56,7 +56,7 @@ function Memories() {
       <div className="memories mb-3">
         <div className="title">
           <h1
-            className="text-center mt-12 mb-2 tracking-wider text-center font-light tracking-wider"
+            className="text-center mt-12 mb-2 tracking-wider font-light"
             style={{ color: "#39798f" }}
           >
             MEMORIES THAT LAST
