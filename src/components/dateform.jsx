@@ -22,6 +22,7 @@ function DateForm(props) {
     image: "",
     private: false,
   };
+  const [error, setError] = useState("")
 
   const handleFormChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -32,6 +33,7 @@ function DateForm(props) {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file.type == "image/jpeg" || file.type == "image/png") {
+      setError("")
       const reader = new FileReader();
 
       const handleLoadEvent = async () => {
@@ -42,11 +44,14 @@ function DateForm(props) {
 
       reader.addEventListener("loadend", handleLoadEvent);
       reader.readAsDataURL(file);
+    } else {
+      setError("Must be jpg or png")
     }
   };
 
   const handleReset = () => {
     setFormValues({ ...newEvent });
+    setError("")
   };
 
   const handleFormSubmit = async (event) => {
@@ -56,13 +61,15 @@ function DateForm(props) {
         date: { ...formValues, author: user.id },
       };
       await props.postData(body);
+      
       setFormValues({ ...newEvent });
       props.onHide();
       if (props.redirect) {
         navigate(props.redirect);
       }
     } catch (error) {
-      console.error(error.message);
+      setError(error.message)
+      console.error(error);
     }
   };
 
@@ -71,6 +78,7 @@ function DateForm(props) {
   useEffect(() => {
     if (props.initValues) {
       setFormValues({ ...newEvent, ...props.initValues });
+      setError("")
     }
   }, [props.show]);
 
@@ -284,7 +292,7 @@ function DateForm(props) {
               <div className="form-group">
                 <div className="mb-3">
                   <label htmlFor="formImage" className="form-label">
-                    Image Upload
+                    Image Upload {error && <span className="text-red-500"> - {error}</span>}
                   </label>
                   <input
                     className="form-control"
@@ -302,32 +310,35 @@ function DateForm(props) {
             <div className="col-md-12 text-center">
               <Button
                 variant="primary"
-                onClick={handleReset}
-                type="reset"
-                className="w-50"
-                sx={{
-                  backgroundColor: "#39798f",
-                  color: "white",
-                  ":hover": { bgcolor: "#1d3d48" },
-                }}
-              >
-                Reset
-              </Button>
-            </div>
-            <div className="col-md-12 text-center">
-              <Button
-                variant="primary"
                 type="submit"
-                className="w-50 mt-2"
+                className="w-50 my-2"
                 sx={{
                   backgroundColor: "#39798f",
                   color: "white",
                   ":hover": { bgcolor: "#1d3d48" },
                 }}
+                disabled={error}
               >
                 Submit
               </Button>
             </div>
+            <div className="col-md-12 text-center">
+              <Button
+                variant="contained"
+                onClick={handleReset}
+                type="reset"
+                color="error"
+                className="w-50 my-2"
+                // sx={{
+                //   backgroundColor: "#39798f",
+                //   color: "white",
+                //   ":hover": { bgcolor: "#1d3d48" },
+                // }}
+              >
+                Reset
+              </Button>
+            </div>
+            
           </div>
         </form>
       </Modal.Body>

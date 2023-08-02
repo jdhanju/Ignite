@@ -231,10 +231,11 @@ app.post("/mydates", async (req, res) => {
       };
       res.status(500).json(error_message);
     } else {
-      res.status(200).end();
+      res.status(200).json({});
     }
   } catch (error) {
     console.error(error.message);
+    res.json({error: "File size too large"})
   }
 });
 
@@ -376,6 +377,13 @@ app.delete("/events/:id", async (req, res, next) => {
 app.get("/locations", async (req, res, next) => {
   const { id } = req.params;
   const result = await pool.query(`SELECT * FROM locations;`);
+  const data = result.rows;
+  res.json(data);
+});
+
+app.get("/distinctlocations", async (req, res, next) => {
+  const { id } = req.params;
+  const result = await pool.query(`SELECT DISTINCT city FROM locations;`);
   const data = result.rows;
   res.json(data);
 });

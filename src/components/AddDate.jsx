@@ -1,7 +1,7 @@
 import React from "react";
 import "./AddDate.css";
 // import CoupleImage from "../assets/home_screen.jpg";
-import DateForm from "./DateForm";
+import DateForm from "./dateform"
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -10,12 +10,22 @@ export default function AddDate({ noDates }) {
   const [modalShow, setModalShow] = useState(false);
 
   const postData = async (body) => {
-    const response = await fetch(`http://${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    let response;
+    
+    try {
+      response = await fetch(`http://${import.meta.env.VITE_EXTERNAL_IP}/mydates`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (!response.ok) {
+      throw new Error("Image too large");
+    }
   };
 
   return (
